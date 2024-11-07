@@ -1,0 +1,66 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Node.js (para el proyecto Angular)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+
+# Angular-specific
+.angular/cache/
+.angular/cli.json
+coverage/
+
+# Python (para el proyecto Django)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+db.sqlite3
+env/
+venv/
+*.env
+*.sqlite3
+
+# Django-specific
+*.pyc
+*.pyo
+*.pyd
+*.db
+media/
+staticfiles/
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.iml
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Local development settings
+settings_local.py
+.env
+
+# JetBrains
+.idea/
+*.iml
