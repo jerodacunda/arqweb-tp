@@ -50,6 +50,7 @@ env/
 venv/
 ENV/
 .venv/
+myvenv/
 
 # Byte-compiled / optimized / DLL files
 *.pyc
