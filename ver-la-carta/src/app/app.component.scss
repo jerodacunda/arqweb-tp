@@ -1,0 +1,20 @@
+.main-container {
+    display: column; // organiza los elementos en una fila
+    flex-wrap: wrap; // permite que los elementos se muevan a la siguiente línea si no hay espacio suficiente
+    gap: 20px; // espacio entre el mapa y el escáner
+  }
+  
+  .map-container, .scanner-container {
+    flex: 1; // hace que ambos elementos se expandan proporcionalmente
+    min-width: 300px; // ancho mínimo para cada contenedor
+    margin: 10px; // espacio alrededor de cada contenedor
+  }
+  
+  .map-container {
+    height: 500px; // altura fija para el mapa
+  }
+  
+  .scanner-container {
+    height: 500px; // altura fija para el escáner
+  }
+  
