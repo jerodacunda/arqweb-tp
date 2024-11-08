@@ -1,0 +1,26 @@
+.business-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #eef7ff;
+  }
+  
+  .business-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #0056b3;
+  }
+  
+  .map-container {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
