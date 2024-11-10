@@ -6,7 +6,7 @@
         "type": "restaurant",
         "contact_info": "011-1234-5678",
         "hours": "Lunes a Viernes: 8:00 - 20:00",
-        "menu_pdf": "menu_cafe_central.pdf",
+        "menu_pdf": "/media/kansas.pdf",
         "logo": "logo_cafe_central.png"
     },
     {
@@ -58,5 +58,14 @@
         "hours": "24hs",
         "menu_pdf": "no.pdf",
         "logo": "jaja.png"
+    },
+    {
+        "name": "agua",
+        "latitude": "-34.538272",
+        "longitude": "-58.418972",
+        "type": "takeout",
+        "contact": "99",
+        "hours": "10 a 11",
+        "menu_pdf": "Taller05-Enunciado.pdf"
     }
 ]

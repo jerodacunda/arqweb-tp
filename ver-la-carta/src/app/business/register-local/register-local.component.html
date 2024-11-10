@@ -17,8 +17,8 @@
     <label for="hours">Horario:</label>
     <input type="text" id="hours" [(ngModel)]="local.hours" name="hours" required>
   
-    <label for="menu_pdf">Menú (PDF URL):</label>
-    <input type="text" id="menu_pdf" [(ngModel)]="local.menu_pdf" name="menu_pdf" required>
+    <label for="menu_pdf">Subir menú PDF:</label>
+    <input type="file" id="menu_pdf" (change)="onFileSelected($event)" />
   
     <label for="logo">Logo (URL):</label>
     <input type="text" id="logo" [(ngModel)]="local.logo" name="logo" required>
