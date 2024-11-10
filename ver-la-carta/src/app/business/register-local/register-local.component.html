@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+    <label for="name">Nombre del local:</label>
+    <input type="text" id="name" [(ngModel)]="local.name" name="name" required>
+  
+    <label for="latitude">Latitud:</label>
+    <input type="number" id="latitude" [(ngModel)]="local.latitude" name="latitude" required>
+  
+    <label for="longitude">Longitud:</label>
+    <input type="number" id="longitude" [(ngModel)]="local.longitude" name="longitude" required>
+  
+    <label for="type">Tipo:</label>
+    <input type="text" id="type" [(ngModel)]="local.type" name="type" required>
+  
+    <label for="contact">Contacto:</label>
+    <input type="text" id="contact" [(ngModel)]="local.contact" name="contact" required>
+  
+    <label for="hours">Horario:</label>
+    <input type="text" id="hours" [(ngModel)]="local.hours" name="hours" required>
+  
+    <label for="menu_pdf">Menú (PDF URL):</label>
+    <input type="text" id="menu_pdf" [(ngModel)]="local.menu_pdf" name="menu_pdf" required>
+  
+    <label for="logo">Logo (URL):</label>
+    <input type="text" id="logo" [(ngModel)]="local.logo" name="logo" required>
+  
+    <button type="submit">Registrar Local</button>
+</form>

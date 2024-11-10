@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Caf\u00e9 Central",
+        "latitude": -34.6037,
+        "longitude": -58.3816,
+        "type": "restaurant",
+        "contact_info": "011-1234-5678",
+        "hours": "Lunes a Viernes: 8:00 - 20:00",
+        "menu_pdf": "menu_cafe_central.pdf",
+        "logo": "logo_cafe_central.png"
+    },
+    {
+        "name": "Pizzer\u00eda Italiana",
+        "latitude": -34.6083,
+        "longitude": -58.3712,
+        "type": "restaurant",
+        "contact_info": "011-2345-6789",
+        "hours": "Todos los d\u00edas: 11:00 - 23:00",
+        "menu_pdf": "menu_pizzeria_italiana.pdf",
+        "logo": "logo_pizzeria_italiana.png"
+    },
+    {
+        "name": "Sushi Express",
+        "latitude": -34.6025,
+        "longitude": -58.3847,
+        "type": "takeout",
+        "contact_info": "011-3456-7890",
+        "hours": "Lunes a Domingo: 12:00 - 22:00",
+        "menu_pdf": "menu_sushi_express.pdf",
+        "logo": "logo_sushi_express.png"
+    },
+    {
+        "name": "Panader\u00eda El Sol",
+        "latitude": -34.6051,
+        "longitude": -58.3772,
+        "type": "takeout",
+        "contact_info": "011-4567-8901",
+        "hours": "Lunes a S\u00e1bado: 6:00 - 18:00",
+        "menu_pdf": "menu_panaderia_el_sol.pdf",
+        "logo": "logo_panaderia_el_sol.png"
+    },
+    {
+        "name": "Mc Donalds",
+        "latitude": -34.818318,
+        "longitude": -58.464097,
+        "type": "restaurant",
+        "contact": "123",
+        "hours": "24hs",
+        "menu_pdf": "mcpdf.pdf",
+        "logo": "mcpng.png"
+    },
+    {
+        "name": "Comedor del pabe 1",
+        "latitude": -34.544248,
+        "longitude": -58.439268,
+        "type": "takeout",
+        "contact": "080010",
+        "hours": "24hs",
+        "menu_pdf": "no.pdf",
+        "logo": "jaja.png"
+    }
+]

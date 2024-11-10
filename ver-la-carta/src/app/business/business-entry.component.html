@@ -1,7 +1,12 @@
 <div class="business-container">
-    <h1 class="business-title">Modo Negocio</h1>
-    <div class="map-container">
-      <app-map></app-map>
-    </div>
+  <h1 class="business-title">Modo Negocio</h1>
+  <button (click)="toggleRegisterForm()">
+    {{ showRegisterForm ? 'Ocultar' : 'Registrar Local' }}
+  </button>
+  <div *ngIf="showRegisterForm">
+    <app-register-local></app-register-local>
   </div>
-  
+  <div class="map-container">
+    <app-map></app-map>
+  </div>
+</div>
