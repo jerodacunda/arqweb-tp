@@ -37,7 +37,6 @@ venv/
 *.pyo
 *.pyd
 *.db
-media/
 staticfiles/
 
 # Editor/IDE specific
