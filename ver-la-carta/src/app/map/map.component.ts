@@ -32,10 +32,31 @@ export class MapComponent implements AfterViewInit {
 
   private loadLocales(): void {
     this.markerService.getLocales().subscribe(locales => {
-      locales.forEach((local: { latitude: number; longitude: number; name: string; type: string; }) => {
+      locales.forEach((local: { 
+        latitude: number; 
+        longitude: number; 
+        name: string; 
+        type: string; 
+        contact: string;
+        hours: string;
+        logo: string;
+        menu_pdf: string;
+      }) => {
+        const logoUrl = `http://localhost:8000/media/${local.logo}`;
+        const menuPdfUrl = `http://localhost:8000/media/${local.menu_pdf}`;
+  
         const marker = L.marker([local.latitude, local.longitude])
           .addTo(this.map)
-          .bindPopup(`<b>${local.name}</b><br>${local.type}`);
+          .bindPopup(`
+            <div>
+              <h3>${local.name}</h3>
+              <p>Tipo: ${local.type}</p>
+              <p>Contacto: ${local.contact}</p>
+              <p>Horario: ${local.hours}</p>
+              ${local.logo ? `<img src="${logoUrl}" alt="Logo" style="width:100px;height:auto;">` : ''}
+              ${local.menu_pdf ? `<p><a href="${menuPdfUrl}" target="_blank">Ver menú en PDF</a></p>` : ''}
+            </div>
+          `);
       });
     });
   }

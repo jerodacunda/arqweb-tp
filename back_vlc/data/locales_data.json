@@ -6,7 +6,7 @@
         "type": "restaurant",
         "contact_info": "011-1234-5678",
         "hours": "Lunes a Viernes: 8:00 - 20:00",
-        "menu_pdf": "/media/kansas.pdf",
+        "menu_pdf": "kansas.pdf",
         "logo": "logo_cafe_central.png"
     },
     {
