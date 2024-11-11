@@ -34,6 +34,14 @@ class LocalListView(APIView):
                     destination.write(chunk)
             new_local['menu_pdf'] = menu_pdf.name
 
+        if 'logo' in request.FILES:
+            logo = request.FILES['logo']
+            logo_path = os.path.join(MEDIA_DIR, logo.name)
+            with default_storage.open(logo_path, 'wb+') as destination:
+                for chunk in logo.chunks():
+                    destination.write(chunk)
+            new_local['logo'] = logo.name
+
         with open(DATA_FILE_PATH, 'r+') as file:
             locales = json.load(file)
             locales.append(new_local)

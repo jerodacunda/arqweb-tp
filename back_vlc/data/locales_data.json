@@ -67,5 +67,15 @@
         "contact": "99",
         "hours": "10 a 11",
         "menu_pdf": "Taller05-Enunciado.pdf"
+    },
+    {
+        "name": "Local con logo",
+        "latitude": "-34.606399",
+        "longitude": "-58.435631",
+        "type": "takeout",
+        "contact": "qwer",
+        "hours": "899",
+        "menu_pdf": "Taller04-Enunciado.pdf",
+        "logo": "Pong.png"
     }
 ]

@@ -18,10 +18,10 @@
     <input type="text" id="hours" [(ngModel)]="local.hours" name="hours" required>
   
     <label for="menu_pdf">Subir menú PDF:</label>
-    <input type="file" id="menu_pdf" (change)="onFileSelected($event)" />
-  
-    <label for="logo">Logo (URL):</label>
-    <input type="text" id="logo" [(ngModel)]="local.logo" name="logo" required>
-  
+    <input type="file" id="menu_pdf" (change)="onPdfSelected($event)" accept=".pdf">
+    
+    <label for="logo">Subir logo (PNG):</label>
+    <input type="file" id="logo" (change)="onLogoSelected($event)" accept=".png">
+    
     <button type="submit">Registrar Local</button>
 </form>

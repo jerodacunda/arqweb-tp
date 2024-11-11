@@ -21,14 +21,22 @@ export class RegisterLocalComponent {
     logo: ''
   };
 
-  selectedFile: File | null = null;
+  selectedPdf: File | null = null;
+  selectedLogo: File | null = null;
 
   constructor(private http: HttpClient) {}
 
-  onFileSelected(event: Event) {
+  onPdfSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+      this.selectedPdf = input.files[0];
+    }
+  }
+
+  onLogoSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedLogo = input.files[0];
     }
   }
 
@@ -40,9 +48,13 @@ export class RegisterLocalComponent {
     formData.append('type', this.local.type);
     formData.append('contact', this.local.contact);
     formData.append('hours', this.local.hours);
-    formData.append('logo', this.local.logo);
-    if (this.selectedFile) {
-      formData.append('menu_pdf', this.selectedFile);
+    
+    if (this.selectedPdf) {
+      formData.append('menu_pdf', this.selectedPdf);
+    }
+
+    if (this.selectedLogo) {
+      formData.append('logo', this.selectedLogo);
     }
 
     this.http.post('http://localhost:8000/api/locales/', formData)
