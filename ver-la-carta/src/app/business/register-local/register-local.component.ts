@@ -17,44 +17,19 @@ export class RegisterLocalComponent {
     type: '',
     contact: '',
     hours: '',
-    menu_pdf: '',
-    logo: ''
+    menu_pdf: null as File | null,
+    logo: null as File | null
   };
-
-  selectedPdf: File | null = null;
-  selectedLogo: File | null = null;
 
   constructor(private http: HttpClient) {}
 
-  onPdfSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedPdf = input.files[0];
-    }
-  }
-
-  onLogoSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedLogo = input.files[0];
-    }
-  }
-
   onSubmit() {
+    // Formulario para enviar los datos al backend
     const formData = new FormData();
-    formData.append('name', this.local.name);
-    formData.append('latitude', this.local.latitude);
-    formData.append('longitude', this.local.longitude);
-    formData.append('type', this.local.type);
-    formData.append('contact', this.local.contact);
-    formData.append('hours', this.local.hours);
-    
-    if (this.selectedPdf) {
-      formData.append('menu_pdf', this.selectedPdf);
-    }
-
-    if (this.selectedLogo) {
-      formData.append('logo', this.selectedLogo);
+    for (const key in this.local) {
+      if (Object.prototype.hasOwnProperty.call(this.local, key)) {
+        formData.append(key, (this.local as any)[key]);
+      }
     }
 
     this.http.post('http://localhost:8000/api/locales/', formData)
@@ -62,4 +37,15 @@ export class RegisterLocalComponent {
         console.log('Local registrado con éxito:', response);
       });
   }
+
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input?.files?.[0];
+    const fieldName = input.name;
+  
+    if (file && (fieldName === 'menu_pdf' || fieldName === 'logo')) {
+      this.local[fieldName] = file;
+    }
+  }
+  
 }
