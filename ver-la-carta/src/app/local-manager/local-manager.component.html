@@ -25,9 +25,7 @@
   <div>
     <h3>Actualizar estado de pedido</h3>
     <label for="tableNumber">Número de Mesa:</label>
-    <select [(ngModel)]="tableNumberToUpdate">
-        <option *ngFor="let table of tables" [value]="table.number">{{ table.number }}</option>
-      </select>
+    <input type="number" [(ngModel)]="tableNumberToUpdate" id="tableNumber" />
     
     <label for="newStatus">Nuevo Estado:</label>
     <select [(ngModel)]="newStatus" id="newStatus">
