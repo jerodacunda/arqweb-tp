@@ -1,0 +1,13 @@
+<div *ngIf="localId" class="create-order-form">
+    <h2>Realizar pedido para el local ID: {{ localId }}</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="table-number">Número de mesa:</label>
+      <input id="table-number" type="number" [(ngModel)]="tableNumber" name="tableNumber" required>
+  
+      <label for="order-details">Detalles del pedido:</label>
+      <textarea id="order-details" [(ngModel)]="orderDetails" name="orderDetails" required></textarea>
+  
+      <button type="submit">Enviar Pedido</button>
+    </form>
+  </div>
+  

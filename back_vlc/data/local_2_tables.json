@@ -1,0 +1,50 @@
+{
+    "tables": [
+        {
+            "number": 1,
+            "order": null
+        },
+        {
+            "number": 2,
+            "order": null
+        },
+        {
+            "number": 3,
+            "order": {
+                "description": "Pizza Margherita",
+                "status": "Accepted"
+            }
+        },
+        {
+            "number": 4,
+            "order": {
+                "description": "milansaa",
+                "status": "Pending"
+            }
+        },
+        {
+            "number": 5,
+            "order": null
+        },
+        {
+            "number": 6,
+            "order": null
+        },
+        {
+            "number": 7,
+            "order": null
+        },
+        {
+            "number": 8,
+            "order": null
+        },
+        {
+            "number": 9,
+            "order": null
+        },
+        {
+            "number": 10,
+            "order": null
+        }
+    ]
+}

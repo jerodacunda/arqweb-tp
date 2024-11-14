@@ -1,10 +1,12 @@
 <div class="user-container">
   <h1 class="user-title">Modo Usuario</h1>
   <div class="map-container">
-    <app-map></app-map>
+    <app-map (showOrderForm)="onShowOrderForm($event)"></app-map>
   </div>
   <div class="scanner-container">
     <app-qr-scanner></app-qr-scanner>
   </div>
+  <div *ngIf="selectedLocalId" class="order-form-container">
+    <app-create-order [localId]="selectedLocalId"></app-create-order>
+  </div>
 </div>
-  

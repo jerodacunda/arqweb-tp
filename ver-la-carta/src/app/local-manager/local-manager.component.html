@@ -1,0 +1,43 @@
+  
+  <label for="localId">ID del Local:</label>
+  <input type="number" [(ngModel)]="localId" id="localId" />
+
+
+
+<button (click)="toggleTableOrders()">
+    {{ showTableOrders ? 'Ocultar Pedidos' : 'Ver Pedidos de Mesas' }}
+  </button>
+  <div *ngIf="showTableOrders">
+    <h3>Pedidos de mesas:</h3>
+    <ul>
+      <li *ngFor="let table of tables">
+        Mesa {{ table.number }} - Pedido: 
+        <span *ngIf="table.order; else noOrder">
+          {{ table.order.description }} (Estado: {{ table.order.status }}) 
+          <button (click)="releaseTable(table.number)">Liberar mesa</button>
+        </span>
+        <ng-template #noOrder>No hay pedido</ng-template>
+      </li>
+    </ul>
+    <button (click)="releaseAllTables()">Liberar todas las mesas</button>
+  </div>
+
+  <div>
+    <h3>Actualizar estado de pedido</h3>
+    <label for="tableNumber">Número de Mesa:</label>
+    <select [(ngModel)]="tableNumberToUpdate">
+        <option *ngFor="let table of tables" [value]="table.number">{{ table.number }}</option>
+      </select>
+    
+    <label for="newStatus">Nuevo Estado:</label>
+    <select [(ngModel)]="newStatus" id="newStatus">
+      <option value="Accepted">Accepted</option>
+      <option value="Rejected">Rejected</option>
+      <option value="Ready for Pickup">Ready for Pickup</option>
+      <option value="Ready">Ready</option>
+    </select>
+    
+    <button (click)="updateOrderStatus()">Actualizar Estado</button>
+  </div> 
+
+  <button (click)="deleteLocal()">ELIMINAR LOCAL!!</button>
