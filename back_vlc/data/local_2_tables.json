@@ -2,7 +2,6 @@
     "tables": [
         {
             "number": 1,
-            "qr_code": "local_2_table_1",
             "order": {
                 "description": "comida escaneada",
                 "status": "Pending"
@@ -10,12 +9,10 @@
         },
         {
             "number": 2,
-            "qr_code": "local_2_table_2",
             "order": null
         },
         {
             "number": 3,
-            "qr_code": "local_2_table_3",
             "order": {
                 "description": "Pizza Margherita",
                 "status": "Ready"
@@ -23,7 +20,6 @@
         },
         {
             "number": 4,
-            "qr_code": "local_2_table_4",
             "order": {
                 "description": "milansaa",
                 "status": "Pending"
@@ -31,32 +27,26 @@
         },
         {
             "number": 5,
-            "qr_code": "local_2_table_5",
             "order": null
         },
         {
             "number": 6,
-            "qr_code": "local_2_table_6",
             "order": null
         },
         {
             "number": 7,
-            "qr_code": "local_2_table_7",
             "order": null
         },
         {
             "number": 8,
-            "qr_code": "local_2_table_8",
             "order": null
         },
         {
             "number": 9,
-            "qr_code": "local_2_table_9",
             "order": null
         },
         {
             "number": 10,
-            "qr_code": "local_2_table_10",
             "order": null
         }
     ]

@@ -33,7 +33,6 @@ class Local(models.Model):
                 initial_data = {
                     "tables": [{
                         "number": i + 1,
-                        "qr_code": f"local_{self.id}_table_{i + 1}",
                         "order": None} for i in range(self.num_tables)]
                 }
                 

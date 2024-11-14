@@ -3,9 +3,6 @@
   <div class="map-container">
     <app-map (showOrderForm)="onShowOrderForm($event)"></app-map>
   </div>
-  <div class="scanner-container">
-    <app-qr-scanner (scanSuccess)="onScanSuccess($event)"></app-qr-scanner>
-  </div>
   <div *ngIf="selectedLocalId" class="order-form-container">
     <app-create-order 
       [localId]="selectedLocalId" 
