@@ -4,9 +4,12 @@
     <app-map (showOrderForm)="onShowOrderForm($event)"></app-map>
   </div>
   <div class="scanner-container">
-    <app-qr-scanner></app-qr-scanner>
+    <app-qr-scanner (scanSuccess)="onScanSuccess($event)"></app-qr-scanner>
   </div>
   <div *ngIf="selectedLocalId" class="order-form-container">
-    <app-create-order [localId]="selectedLocalId"></app-create-order>
+    <app-create-order 
+      [localId]="selectedLocalId" 
+      [tableNumber]="selectedTableNumber">
+    </app-create-order>
   </div>
 </div>

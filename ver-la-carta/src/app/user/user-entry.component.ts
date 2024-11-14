@@ -13,8 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class UserEntryComponent {
   selectedLocalId: number | null = null;
+  selectedTableNumber: number | null = null;
 
   onShowOrderForm(localId: number): void {
     this.selectedLocalId = localId;
+  }
+
+  onScanSuccess(event: { localId: number, tableNumber: number }): void {
+    this.selectedLocalId = event.localId;
+    this.selectedTableNumber = event.tableNumber;
   }
 }

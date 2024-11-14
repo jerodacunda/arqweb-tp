@@ -31,7 +31,10 @@ class Local(models.Model):
             # Crear archivo JSON inicial si no existe
             if not os.path.exists(self.data_file_path):
                 initial_data = {
-                    "tables": [{"number": i + 1, "order": None} for i in range(self.num_tables)]
+                    "tables": [{
+                        "number": i + 1,
+                        "qr_code": f"local_{self.id}_table_{i + 1}",
+                        "order": None} for i in range(self.num_tables)]
                 }
                 
                 with open(self.data_file_path, 'w') as json_file:
@@ -39,6 +42,5 @@ class Local(models.Model):
 
             # Guarda de nuevo para persistir el `data_file_path`
             super().save(*args, **kwargs)
-
     def __str__(self):
         return self.name

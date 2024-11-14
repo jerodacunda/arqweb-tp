@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 
 export class CreateOrderComponent {
   @Input() localId: number | null = null;
-  tableNumber: number | null = null;
+  @Input() tableNumber: number | null = null;
   orderDetails: string = '';
 
   constructor(private http: HttpClient) {}
