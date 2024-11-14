@@ -5,7 +5,10 @@
 
 <div class="mode-content">
   <ng-container *ngIf="currentMode === 'user'">
-    <app-user-entry></app-user-entry>
+    <app-user-entry 
+      [selectedLocalId]="selectedLocalId" 
+      [selectedTableNumber]="selectedTableNumber">
+    </app-user-entry>
   </ng-container>
   <ng-container *ngIf="currentMode === 'business'">
     <app-business-entry></app-business-entry>
