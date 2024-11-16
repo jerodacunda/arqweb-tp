@@ -18,8 +18,10 @@ class LocalListView(APIView):
     def post(self, request):
         serializer = LocalSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()  # Guarda automáticamente el objeto en la base de datos
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)  # Imprime los errores de validación
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LocalTableOrderView(APIView):
@@ -33,32 +35,12 @@ class LocalTableOrderView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request, local_id):
-        file_path = os.path.join(DATA_DIR, f'local_{local_id}_tables.json')
-        if not os.path.exists(file_path):
-            return Response({"error": "Local no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-        
-        new_order = request.data
-        table_number = new_order.get("table_number")
-        order_details = new_order.get("order")
-
-        with open(file_path, 'r+') as file:
-            data = json.load(file)
-            table = next((t for t in data["tables"] if t["number"] == table_number), None)
-            
-            if not table:
-                return Response({"error": "Mesa no encontrada"}, status=status.HTTP_404_NOT_FOUND)
-            
-            if table["order"] is not None:
-                return Response({"error": "La mesa ya tiene un pedido"}, status=status.HTTP_400_BAD_REQUEST)
-            
-            table["order"] = order_details
-            file.seek(0)
-            json.dump(data, file, indent=4)
-            file.truncate()
-        
-        return Response({"message": "Pedido creado", "table": table}, status=status.HTTP_201_CREATED)
-        
-
+        order_details = request.data.get("order_details")
+        table_number = request.data.get("table_number")
+        local = Local.objects.get(id=local_id)
+        response = local.create_order(local_id, table_number, order_details)
+        return response
+    
     def delete(self, request, local_id):
         file_path = os.path.join(DATA_DIR, f'local_{local_id}_tables.json')
         if not os.path.exists(file_path):
@@ -98,24 +80,41 @@ class LocalTableOrderView(APIView):
         file_path = os.path.join(DATA_DIR, f'local_{local_id}_tables.json')
         if not os.path.exists(file_path):
             return Response({"error": "Local no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-        
-        table_number = request.data.get("table_number")
+
+        order_id = request.data.get("order_id")
         new_status = request.data.get("status")
 
         with open(file_path, 'r+') as file:
             data = json.load(file)
-            table = next((t for t in data["tables"] if t["number"] == table_number), None)
-            
-            if not table:
-                return Response({"error": "Mesa no encontrada"}, status=status.HTTP_404_NOT_FOUND)
-            
-            if table["order"] is None:
-                return Response({"error": "No hay pedido para actualizar"}, status=status.HTTP_400_BAD_REQUEST)
-            
-            table["order"]["status"] = new_status
+
+            # Buscar el pedido por ID
+            order_found = False
+            for table in data["tables"]:
+                if table["number"] != 0 and table["order"] and table["order"].get("id") == order_id:
+                    table["order"]["status"] = new_status
+                    order_found = True
+                    break
+                elif table.get("orders"):  # Manejo de múltiples pedidos (ej. mesa 0)
+                    for order in table["orders"]:
+                        if order["id"] == order_id:
+                            order["status"] = new_status
+                            order_found = True
+                            break
+                if order_found:
+                    break
+
+            if not order_found:
+                return Response({"error": "Pedido no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+            # Si el pedido es de la mesa 0 y su estado es "Entregado", lo eliminamos de la lista de pedidos
+            if new_status == "Entregado" and table["number"] == 0:
+                if table.get("orders"):
+                    # Eliminar el pedido que acaba de ser entregado
+                    table["orders"] = [order for order in table["orders"] if order["id"] != order_id]
+
+
             file.seek(0)
             json.dump(data, file, indent=4)
             file.truncate()
-        
-        return Response({"message": "Estado del pedido actualizado", "table": table}, status=status.HTTP_200_OK)
-        
+
+        return Response({"message": "Estado del pedido actualizado"}, status=status.HTTP_200_OK)

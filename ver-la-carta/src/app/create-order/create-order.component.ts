@@ -47,17 +47,17 @@ export class CreateOrderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.localId && this.tableNumber) {
+    if (this.localId !== null && this.tableNumber !== null) {
       const orderData = {
         table_number: this.tableNumber,
-        order: { description: this.orderDetails, status: 'Pending' },
+        order_details: this.orderDetails,
       };
-
+  
       this.http.post(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, orderData)
         .subscribe(
-          response => {
+          (response: any) => {
             console.log('Pedido creado con éxito:', response);
-            alert('Pedido realizado con éxito');
+            alert(`Pedido realizado con éxito. Número del pedido: ${response.order_id}`);
           },
           error => {
             console.error('Error al realizar el pedido:', error);

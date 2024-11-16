@@ -1,6 +1,10 @@
 import os
 import json
 from django.db import models
+from rest_framework import status
+from rest_framework.response import Response
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 class Local(models.Model):
     name = models.CharField(max_length=100)
@@ -14,32 +18,41 @@ class Local(models.Model):
     num_tables = models.IntegerField(default=10)
     data_file_path = models.CharField(max_length=255, blank=True, null=True)  # Ruta al archivo JSON
 
-    def save(self, *args, **kwargs):
-        # Guarda inicialmente el objeto si es nuevo para asegurar un ID
-        if not self.pk:
-            super().save(*args, **kwargs)
-        
-        # Asigna y crea `data_file_path` si no existe
-        if not self.data_file_path:
-            base_dir = 'data'
-            if not os.path.exists(base_dir):
-                os.makedirs(base_dir)
+    def create_order(self, local_id, table_number, order_details):
+        file_path = os.path.join('data', f'local_{local_id}_tables.json')
+        if not os.path.exists(file_path):
+            return Response({"error": "Archivo de datos no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
-            self.data_file_path = os.path.join(base_dir, f'local_{self.id}_tables.json')
-            print(f"Data file path asignado: {self.data_file_path}")  # Línea de depuración
+        with open(file_path, 'r+') as file:
+            data = json.load(file)
+            order_id = data["order_counter"]
+            
+            new_order = {
+                "id": order_id,
+                "description": order_details,
+                "status": 'Pending'
+            }
 
-            # Crear archivo JSON inicial si no existe
-            if not os.path.exists(self.data_file_path):
-                initial_data = {
-                    "tables": [{
-                        "number": i + 1,
-                        "order": None} for i in range(self.num_tables)]
-                }
+            if table_number == 0:
+                table = next((t for t in data["tables"] if t["number"] == 0), None)
+                table["orders"].append(new_order)
+            else:
+                table = next((t for t in data["tables"] if t["number"] == table_number), None)
+                if not table:
+                    return Response({"error": "Mesa no encontrada."}, status=status.HTTP_404_NOT_FOUND)
                 
-                with open(self.data_file_path, 'w') as json_file:
-                    json.dump(initial_data, json_file)
+                if table["order"] is not None:
+                    return Response({"error": "La mesa ya tiene un pedido."}, status=status.HTTP_400_BAD_REQUEST)
+                
+                table["order"] = new_order
+            
+            data["order_counter"] += 1
+            file.seek(0)
+            json.dump(data, file, indent=4)
+            file.truncate()
 
-            # Guarda de nuevo para persistir el `data_file_path`
-            super().save(*args, **kwargs)
+        return Response({"message": "Pedido creado con éxito.", "order_id": order_id}, status=status.HTTP_201_CREATED)
+
+            
     def __str__(self):
         return self.name

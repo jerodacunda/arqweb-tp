@@ -8,13 +8,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './local-manager.component.html',
-  styleUrl: './local-manager.component.scss'
+  styleUrls: ['./local-manager.component.scss']
 })
 export class LocalManagerComponent {
   showTableOrders = false;
   localId: number | null = null;
   tables: any[] = [];
-  tableNumberToUpdate: number | null = null;
   newStatus: string = '';
 
   constructor(private http: HttpClient) {}
@@ -51,11 +50,11 @@ export class LocalManagerComponent {
     }
   }
 
-  updateOrderStatus() {
-    if (this.localId && this.tableNumberToUpdate !== null && this.newStatus) {
+  updateOrderStatus(tableNumber: number, orderId: number, newStatus: string) {
+    if (this.localId && orderId != null) {
       const requestData = {
-        table_number: this.tableNumberToUpdate,
-        status: this.newStatus
+        order_id: orderId,
+        status: newStatus,
       };
 
       this.http.put(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, requestData)
