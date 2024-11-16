@@ -93,20 +93,29 @@ export class LocalManagerComponent {
 
   releaseAllTables() {
     if (this.localId && confirm('¿Está seguro de que desea liberar todas las mesas?')) {
-      const requestData = { action: 'release_all' };
-      this.http.delete(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, { body: requestData }).subscribe(
-        () => {
-          alert('Todas las mesas liberadas con éxito');
-          this.fetchOrders();
-        },
-        (error) => {
-          alert('Error al liberar todas las mesas: ' + error.error?.error || 'Desconocido');
+        let action = null; // Inicializar correctamente con `let`.
+
+        if (confirm('¿Eliminar incluso pedidos de PickUp?')) {
+            action = 'release_all_pickup' ; // Asignación correcta.
+        } else {
+            action = 'release_all'; // Asignación correcta.
         }
-      );
+
+        // Enviar la solicitud con el cuerpo correctamente asignado.
+        this.http.delete(`http://localhost:8000/api/locales/${this.localId}/tables-orders/?action=${action}`).subscribe(
+            () => {
+                alert('Todas las mesas liberadas con éxito');
+                this.fetchOrders();
+            },
+            (error) => {
+                alert('Error al liberar todas las mesas: ' + (error.error?.error || 'Desconocido'));
+            }
+        );
     } else if (!this.localId) {
-      alert('Por favor, ingrese un ID de local antes de continuar.');
+        alert('Por favor, ingrese un ID de local antes de continuar.');
     }
-  }
+}
+
 
   deleteLocal() {
     if (this.localId && confirm('¿Está seguro de que desea eliminar el local? Esta acción no se puede deshacer.')) {

@@ -45,9 +45,9 @@ class LocalTableOrderView(APIView):
         file_path = os.path.join(DATA_DIR, f'local_{local_id}_tables.json')
         if not os.path.exists(file_path):
             return Response({"error": "Archivo de datos no encontrado."}, status=status.HTTP_404_NOT_FOUND)
-        
+    
         action = request.GET.get('action')
-        
+    
         if action == 'delete_local':
             local = Local.objects.get(id=local_id)
             local.delete()
@@ -55,11 +55,39 @@ class LocalTableOrderView(APIView):
             os.remove(file_path)
             
             return Response({"message": "El local y sus datos han sido eliminados con éxito."}, status=status.HTTP_200_OK)
-        
-        table_number = request.data.get("table_number")
-
+    
         with open(file_path, 'r+') as file:
             data = json.load(file)
+    
+            if action == 'release_all':
+                # Eliminar las órdenes de todas las mesas excepto la 0
+                for table in data["tables"]:
+                    if table["number"] >= 1:
+                        table["order"] = None
+    
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
+    
+                return Response({"message": "Pedidos de todas las mesas >= 1 eliminados con éxito."}, status=status.HTTP_200_OK)
+    
+            elif action == 'release_all_pickup':
+                # Eliminar las órdenes de todas las mesas, incluyendo la 0
+                for table in data["tables"]:
+                    if table["number"] >= 0:
+                        if table["number"] == 0 and "orders" in table:
+                            table["orders"] = []  # Vaciar la lista de órdenes de la mesa 0
+                        else:
+                            table["order"] = None
+    
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
+    
+                return Response({"message": "Pedidos de todas las mesas, incluyendo la mesa 0, eliminados con éxito."}, status=status.HTTP_200_OK)
+    
+            # Procedimiento estándar para eliminar un pedido específico
+            table_number = request.data.get("table_number")
             table = next((t for t in data["tables"] if t["number"] == table_number), None)
             
             if not table:
@@ -74,7 +102,7 @@ class LocalTableOrderView(APIView):
             file.truncate()
         
         return Response({"message": "Pedido eliminado con éxito.", "table": table}, status=status.HTTP_200_OK)
-            
+
     
     def put(self, request, local_id):
         file_path = os.path.join(DATA_DIR, f'local_{local_id}_tables.json')
