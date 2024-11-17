@@ -25,8 +25,8 @@ class Local(models.Model):
 
         with open(file_path, 'r+') as file:
             data = json.load(file)
-            order_id = data["order_counter"]
-            
+            # Generar un ID de pedido único combinando el ID del local y el contador
+            order_id = f"{local_id}-{data["order_counter"]}"            
             new_order = {
                 "id": order_id,
                 "description": order_details,

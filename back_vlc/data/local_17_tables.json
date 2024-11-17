@@ -1,18 +1,18 @@
 {
-    "order_counter": 12,
+    "order_counter": 14,
     "tables": [
         {
             "number": 0,
             "orders": [
                 {
-                    "id": 9,
+                    "id": "17-9",
                     "description": "23",
                     "status": "Pending"
                 },
                 {
-                    "id": 10,
-                    "description": "23",
-                    "status": "Pending"
+                    "id": "17-10",
+                    "description": "17-23",
+                    "status": "Aceptado"
                 }
             ]
         },
@@ -26,11 +26,19 @@
         },
         {
             "number": 3,
-            "order": null
+            "order": {
+                "id": "17-12",
+                "description": "Hacemos un pedido",
+                "status": "Pending"
+            }
         },
         {
             "number": 4,
-            "order": null
+            "order": {
+                "id": "17-13",
+                "description": "ahora si",
+                "status": "Pending"
+            }
         },
         {
             "number": 5,
