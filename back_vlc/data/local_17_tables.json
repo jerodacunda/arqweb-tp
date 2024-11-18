@@ -1,5 +1,5 @@
 {
-    "order_counter": 16,
+    "order_counter": 17,
     "tables": [
         {
             "number": 0,
@@ -17,6 +17,11 @@
                 {
                     "id": "17-15",
                     "description": "asd",
+                    "status": "Pending"
+                },
+                {
+                    "id": "17-16",
+                    "description": "AD",
                     "status": "Pending"
                 }
             ]

@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MarkerService } from '../../marker.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-create-order',
@@ -11,9 +12,10 @@ import { MarkerService } from '../../marker.service';
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.scss']
 })
-export class CreateOrderComponent implements OnInit {
+export class CreateOrderComponent implements OnInit, OnChanges {
   @Input() localId: number | null = null;
   @Input() tableNumber: number | null = null;
+  @Input() userLocation: L.LatLng | null = null; // Recibir la ubicación del usuario
   orderDetails: string = '';
   localDetails: any = null;
   menuPdfUrl: string | null = null;
@@ -28,6 +30,12 @@ export class CreateOrderComponent implements OnInit {
     if (this.tableNumber === 0) {
       this.isPickUp = true; // Marcar la casilla de PickUp si el número de mesa es 0
       this.togglePickUp(); // Aplicar la lógica de bloqueo y ocultación
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['localId'] && !changes['localId'].firstChange) {
+      this.loadLocalDetails(this.localId!);
     }
   }
 
@@ -56,11 +64,22 @@ export class CreateOrderComponent implements OnInit {
 
   onSubmit(): void {
     if (this.localId !== null && (this.isPickUp || this.tableNumber !== null)) {
+      if (this.tableNumber && this.tableNumber >= 1 && this.userLocation && this.localDetails) {
+        const localLatLng = L.latLng(this.localDetails.latitude, this.localDetails.longitude);
+        const distance = this.calculateDistance(this.userLocation, localLatLng);
+        console.log(localLatLng, this.userLocation, distance);
+
+        if (distance > 5000) {
+          alert('El local está a más de 5000 metros de distancia. No se puede realizar el pedido.');
+          return;
+        }
+      }
+
       const orderData = {
         table_number: this.tableNumber,
         order_details: this.orderDetails,
       };
-  
+
       this.http.post(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, orderData)
         .subscribe(
           (response: any) => {
@@ -69,7 +88,7 @@ export class CreateOrderComponent implements OnInit {
           },
           error => {
             console.error('Error al realizar el pedido:', error);
-            alert('Ocurrió un error al realizar el pedido');
+            alert('Error al realizar el pedido. Por favor, inténtelo de nuevo.');
           }
         );
     }
@@ -83,5 +102,10 @@ export class CreateOrderComponent implements OnInit {
     }
     this.togglePickUp(); // Llama al método para actualizar la lógica de bloqueo/ocultación
   }
+
+  private calculateDistance(userLatLng: L.LatLng, localLatLng: L.LatLng): number {
+    return userLatLng.distanceTo(localLatLng);
+  }
+
   
 }

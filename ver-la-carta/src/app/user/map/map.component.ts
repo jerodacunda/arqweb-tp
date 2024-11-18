@@ -13,11 +13,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Output() showOrderForm = new EventEmitter<number>(); // Emisor de evento para el localId
   private locales: any[] = []; // Guardamos los locales cargados
   @Input() selectedLocalId: number | null = null;
+  @Output() userLocation = new EventEmitter<L.LatLng>(); // Emitir la ubicación del usuario
 
   constructor(private markerService: MarkerService) {}
 
   private initMap(): void {
-    this.map = L.map('map').setView([-34.750847, -58.387544], 10);
+    this.map = L.map('map').setView([-34.750847, -58.387544], 10); // Ubicación predeterminada
+
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 3,
@@ -29,6 +31,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.initMap();
     this.loadLocales();
+
+    // Intentar obtener la ubicación del usuario
+    this.getUserLocation();
   }
 
   private loadLocales(): void {
@@ -97,10 +102,39 @@ export class MapComponent implements AfterViewInit, OnChanges {
         logo: string;
         menu_pdf: string;
       }) => {
-        if(local["id"]==localId){
-          this.map.setView([local.latitude,local.longitude],15)
+        if(local["id"] == localId){
+          this.map.setView([local.latitude, local.longitude], 15);
         }
       });
     });
+  }
+
+  private getUserLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLat = position.coords.latitude;
+          const userLng = position.coords.longitude;
+          console.log('Ubicación obtenida:', userLat, userLng); // Ver las coordenadas
+          const userLatLng = L.latLng(userLat, userLng);
+          this.userLocation.emit(userLatLng); // Emitir la ubicación del usuario  
+          // Mostrar la ubicación del usuario en el mapa
+          const userMarker = L.marker([userLat, userLng]).addTo(this.map);
+          userMarker.bindPopup('Ubicación actual del usuario');
+        },
+        (error) => {
+          console.error('Error al obtener la ubicación del usuario: ', error);
+          // Si no se puede obtener la ubicación, podrías mostrar un mensaje o mantener la ubicación predeterminada
+          alert('No se pudo obtener la ubicación del usuario. Se usará la ubicación predeterminada.');
+        },
+        {
+          enableHighAccuracy: true,  // Forzar mayor precisión (puede usar más batería)
+          timeout: 10000,            // Tiempo máximo para obtener la ubicación
+          maximumAge: 0             // No usar ubicaciones en caché
+        }
+      );
+    } else {
+      console.error('Geolocalización no soportada en este navegador.');
+    }
   }
 }

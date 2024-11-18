@@ -1,12 +1,13 @@
 <div class="user-container">
   <h1 class="user-title">Modo Usuario</h1>
   <div class="map-container">
-    <app-map (showOrderForm)="onShowOrderForm($event)" [selectedLocalId]="selectedLocalId"></app-map>
+    <app-map (userLocation)="onUserLocationReceived($event)" (showOrderForm)="onShowOrderForm($event)" [selectedLocalId]="selectedLocalId"></app-map>
   </div>
   <div *ngIf="selectedLocalId" class="order-form-container">
     <app-create-order 
       [localId]="selectedLocalId" 
-      [tableNumber]="selectedTableNumber">
+      [tableNumber]="selectedTableNumber"
+      [userLocation]="userLocation"> <!-- Pasar la ubicación del usuario -->
     </app-create-order>
   </div>
   <div class="check-order-status-container">
