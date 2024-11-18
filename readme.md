@@ -66,22 +66,25 @@ src/
 |-- main.ts                    # Archivo principal de inicio de la aplicación Angular.
 |-- styles.css                 # Estilos globales de la aplicación.
 |-- app/
-    |-- register-local.component/           
-        |-- register-local.component.html    # Vista para registrar un local.
-        |-- register-local.component.ts      # Lógica del componente de registro de locales.
     |-- business-entry.component/
+        |-- local-manager.component/
+            |-- local-manager.component.html     # Vista para la gestión de locales y pedidos.
+            |-- local-manager.component.ts       # Lógica de gestión de locales y pedidos.
+        |-- register-local.component/           
+            |-- register-local.component.html    # Vista para registrar un local.
+            |-- register-local.component.ts      # Lógica del componente de registro de locales.
         |-- business-entry.component.html    # Vista para la seccion business.
         |-- business-entry.component.ts      # Lógica de seccion business.
-    |-- create-order.component/
-        |-- create-order.component.html      # Vista para la creación de pedidos.
-        |-- create-order.component.ts        # Lógica del componente para crear pedidos.
-    |-- local-manager.component/
-        |-- local-manager.component.html     # Vista para la gestión de locales y pedidos.
-        |-- local-manager.component.ts       # Lógica de gestión de locales y pedidos.
-    |-- map.component/
-        |-- map.component.html               # Vista de mapa con locales
-        |-- map.component.ts                 # Lógica del componente de mapas.
     |-- user-entry.component/
+        |-- check-order-status.component/           
+            |-- check-order-status.component.html    # Vista para consultar estado de un pedido.
+            |-- check-order-status.component.ts      # 
+        |-- create-order.component/
+            |-- create-order.component.html      # Vista para la creación de pedidos.
+            |-- create-order.component.ts        # Lógica del componente para crear pedidos.
+        |-- map.component/
+            |-- map.component.html               # Vista de mapa con locales
+            |-- map.component.ts                 # Lógica del componente de mapas.
         |-- user-entry.component.html        # Vista para la entrada de usuarios.
         |-- user-entry.component.ts          # Lógica del componente de entrada de usuarios.
     |-- app.component/

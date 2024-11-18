@@ -51,8 +51,6 @@ export class CreateOrderComponent implements OnInit {
   togglePickUp(): void {
     if (this.isPickUp) {
       this.tableNumber = 0; // Asigna 0 cuando se activa PickUp
-    } else {
-      this.tableNumber = null; // Permite modificar el número de mesa cuando PickUp está desactivado
     }
   }
 
