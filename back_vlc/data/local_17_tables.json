@@ -1,5 +1,5 @@
 {
-    "order_counter": 14,
+    "order_counter": 15,
     "tables": [
         {
             "number": 0,
@@ -22,7 +22,11 @@
         },
         {
             "number": 2,
-            "order": null
+            "order": {
+                "id": "17-14",
+                "description": "milanesa",
+                "status": "Pending"
+            }
         },
         {
             "number": 3,

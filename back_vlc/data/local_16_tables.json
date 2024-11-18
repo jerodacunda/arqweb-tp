@@ -12,7 +12,7 @@
                 {
                     "id": "16-4",
                     "description": "dios no lo puedo creer",
-                    "status": "Pending"
+                    "status": "Listo para Pickup"
                 },
                 {
                     "id": "16-5",
@@ -51,11 +51,7 @@
         },
         {
             "number": 6,
-            "order": {
-                "id": "16-10",
-                "description": "ASFASF",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 7,

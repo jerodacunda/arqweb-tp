@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Component, AfterViewInit, EventEmitter, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from '../marker.service';
 
@@ -8,9 +8,11 @@ import { MarkerService } from '../marker.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnChanges {
   private map: any;
   @Output() showOrderForm = new EventEmitter<number>(); // Emisor de evento para el localId
+  private locales: any[] = []; // Guardamos los locales cargados
+  @Input() selectedLocalId: number | null = null;
 
   constructor(private markerService: MarkerService) {}
 
@@ -31,6 +33,7 @@ export class MapComponent implements AfterViewInit {
 
   private loadLocales(): void {
     this.markerService.getLocales().subscribe(locales => {
+      this.locales = locales;
       locales.forEach((local: {
         id: number;
         latitude: number;
@@ -73,5 +76,31 @@ export class MapComponent implements AfterViewInit {
         <button id="order-button-${local.id}">Realizar Pedido</button>
       </div>
     `;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedLocalId'] && this.selectedLocalId !== null) {
+      this.centerMapOnLocal(this.selectedLocalId);
+    }
+  }
+
+  centerMapOnLocal(localId: number): void {
+    this.markerService.getLocales().subscribe(locales => {
+      locales.forEach((local: {
+        id: number;
+        latitude: number;
+        longitude: number;
+        name: string;
+        type: string;
+        contact: string;
+        hours: string;
+        logo: string;
+        menu_pdf: string;
+      }) => {
+        if(local["id"]==localId){
+          this.map.setView([local.latitude,local.longitude],15)
+        }
+      });
+    });
   }
 }
