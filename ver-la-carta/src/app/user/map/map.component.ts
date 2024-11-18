@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, EventEmitter, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
-import { MarkerService } from '../marker.service';
+import { MarkerService } from '../../marker.service';
 
 @Component({
   selector: 'app-map',

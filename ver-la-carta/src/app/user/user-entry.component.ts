@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { MapComponent } from '../map/map.component';
-import { CreateOrderComponent } from '../create-order/create-order.component';
+import { MapComponent } from './map/map.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
 import { CommonModule } from '@angular/common';
-import { CheckOrderStatusComponent } from '../check-order-status/check-order-status.component';
+import { CheckOrderStatusComponent } from './check-order-status/check-order-status.component';
 
 @Component({
   selector: 'app-user-entry',
