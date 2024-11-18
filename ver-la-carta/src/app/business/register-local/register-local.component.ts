@@ -18,7 +18,8 @@ export class RegisterLocalComponent {
     contact: '',
     hours: '',
     menu_pdf: null as File | null,
-    logo: null as File | null
+    logo: null as File | null,
+    num_tables: 10,
   };
 
   constructor(private http: HttpClient) {}
@@ -35,6 +36,7 @@ export class RegisterLocalComponent {
     this.http.post('http://localhost:8000/api/locales/', formData)
       .subscribe(response => {
         console.log('Local registrado con éxito:', response);
+        alert('Local registrado con éxito');
       });
   }
 
