@@ -1,26 +1,18 @@
 <div *ngIf="localId" class="create-order-form">
   <h2>Realizar pedido para el local ID: {{ localId }}</h2>
   <form (ngSubmit)="onSubmit()">
-    <label for="table-number">Número de mesa:</label>
-    <input id="table-number" type="number" [(ngModel)]="tableNumber" name="tableNumber" required>
-  
-    <label for="order-details">Detalles del pedido:</label>
-    <textarea id="order-details" [(ngModel)]="orderDetails" name="orderDetails" required></textarea>
-  
-    <button type="submit">Enviar Pedido</button>
-  </form>
+    <label for="pickup">Pedido para recoger (PickUp):</label>
+    <input type="checkbox" id="pickup" [(ngModel)]="isPickUp" name="pickup" (change)="togglePickUp()">
 
-  <div *ngIf="localDetails" class="local-info">
-    <h2>{{ localDetails.name }}</h2>
-    <p><strong>Tipo:</strong> {{ localDetails.type }}</p>
-    <p><strong>Contacto:</strong> {{ localDetails.contact }}</p>
-    <p><strong>Horario:</strong> {{ localDetails.hours }}</p>
-    <div *ngIf="localDetails.logo">
-      <img [src]="'http://localhost:8000/' + localDetails.logo" alt="Logo del local" style="max-width: 200px;">
+    <!-- Mostrar solo si isPickUp es false -->
+    <div *ngIf="!isPickUp">
+      <label for="table-number">Número de mesa:</label>
+      <input id="table-number" type="number" [(ngModel)]="tableNumber" name="tableNumber" (input)="onTableNumberChange()">
     </div>
-    <!-- Enlace para ver el menú en PDF -->
-    <div *ngIf="menuPdfUrl">
-      <a [href]="menuPdfUrl" target="_blank">Ver menú en PDF</a>
-    </div>
-  </div>
+
+    <label for="order-details">Detalles del pedido:</label>
+    <textarea id="order-details" [(ngModel)]="orderDetails" name="orderDetails"></textarea>
+
+    <button type="submit">Realizar pedido</button>
+  </form>
 </div>

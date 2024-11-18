@@ -11,7 +11,7 @@
     <li *ngFor="let table of tables">
       <!-- Caso especial para la mesa 0 (Mesa con pedidos múltiples) -->
       <ng-container *ngIf="table.number === 0; else regularTable">
-        Mesa {{ table.number }} - Pedidos:
+        Pedidos PickUp:
         <ul>
           <li *ngFor="let order of table.orders">
             {{ order.description }} - Estado: {{ order.status }} - Actualizar estado: 

@@ -11,13 +11,13 @@ import { MarkerService } from '../marker.service';
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.scss']
 })
-
 export class CreateOrderComponent implements OnInit {
   @Input() localId: number | null = null;
   @Input() tableNumber: number | null = null;
   orderDetails: string = '';
   localDetails: any = null;
   menuPdfUrl: string | null = null;
+  isPickUp: boolean = false; // Nueva propiedad para el control de PickUp
 
   constructor(private http: HttpClient, private markerService: MarkerService) {}
 
@@ -25,14 +25,16 @@ export class CreateOrderComponent implements OnInit {
     if (this.localId !== null) {
       this.loadLocalDetails(this.localId);
     }
+    if (this.tableNumber === 0) {
+      this.isPickUp = true; // Marcar la casilla de PickUp si el número de mesa es 0
+      this.togglePickUp(); // Aplicar la lógica de bloqueo y ocultación
+    }
   }
 
   private loadLocalDetails(localId: number): void {
     this.markerService.getLocales().subscribe(
       (locales: any[]) => {
-        // Filtrar el local que coincide con el `localId`
         const local = locales.find(l => l.id === localId);
-
         if (local) {
           this.localDetails = local;
           this.menuPdfUrl = `http://localhost:8000/${local.menu_pdf}`;
@@ -46,8 +48,16 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
+  togglePickUp(): void {
+    if (this.isPickUp) {
+      this.tableNumber = 0; // Asigna 0 cuando se activa PickUp
+    } else {
+      this.tableNumber = null; // Permite modificar el número de mesa cuando PickUp está desactivado
+    }
+  }
+
   onSubmit(): void {
-    if (this.localId !== null && this.tableNumber !== null) {
+    if (this.localId !== null && (this.isPickUp || this.tableNumber !== null)) {
       const orderData = {
         table_number: this.tableNumber,
         order_details: this.orderDetails,
@@ -66,4 +76,14 @@ export class CreateOrderComponent implements OnInit {
         );
     }
   }
+
+  onTableNumberChange(): void {
+    if (this.tableNumber === 0) {
+      this.isPickUp = true; // Marca automáticamente la casilla de PickUp
+    } else {
+      this.isPickUp = false; // Desmarca la casilla si el valor no es 0
+    }
+    this.togglePickUp(); // Llama al método para actualizar la lógica de bloqueo/ocultación
+  }
+  
 }
