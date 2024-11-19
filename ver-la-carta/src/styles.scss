@@ -1,1 +1,27 @@
 @import 'leaflet/dist/leaflet.css';
+
+body {
+    background-color: #f4f4f4; 
+    margin: 0;
+    font-family: 'Roboto', sans-serif; 
+  }
+
+h2.title {
+  text-align: center;
+  color: #4CAF50;
+  margin: 20px 0;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select, textarea, button {
+  font-size: 16px;
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+}

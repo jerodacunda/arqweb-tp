@@ -4,7 +4,7 @@
     gap: 20px; // espacio entre el mapa y el escáner
   }
   
-  .map-container, .scanner-container {
+  .map-container{
     flex: 1; // hace que ambos elementos se expandan proporcionalmente
     min-width: 300px; // ancho mínimo para cada contenedor
     margin: 10px; // espacio alrededor de cada contenedor
@@ -13,8 +13,26 @@
   .map-container {
     height: 500px; // altura fija para el mapa
   }
-  
-  .scanner-container {
-    height: 500px; // altura fija para el escáner
-  }
-  
+
+/* Botones principales centrados */
+  .mode-selector {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Separación entre los botones */
+  margin: 20px 0;
+}
+
+.mode-selector button {
+  font-size: 18px; /* Más grandes */
+  padding: 15px 30px;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff; /* Azul */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mode-selector button:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}

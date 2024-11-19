@@ -3,63 +3,27 @@
     "tables": [
         {
             "number": 0,
-            "orders": [
-                {
-                    "id": "19-1",
-                    "description": "a",
-                    "status": "Pending"
-                },
-                {
-                    "id": "19-4",
-                    "description": "Comica cerca para levar",
-                    "status": "Pending"
-                },
-                {
-                    "id": "19-7",
-                    "description": "ASD",
-                    "status": "Pending"
-                }
-            ]
+            "orders": []
         },
         {
             "number": 1,
-            "order": {
-                "id": "19-8",
-                "description": "AD",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 2,
-            "order": {
-                "id": "19-9",
-                "description": "s",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 3,
-            "order": {
-                "id": "19-2",
-                "description": "asd",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 4,
-            "order": {
-                "id": "19-5",
-                "description": "ASD",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 5,
-            "order": {
-                "id": "19-3",
-                "description": "Comica cerca",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 6,
@@ -75,11 +39,7 @@
         },
         {
             "number": 9,
-            "order": {
-                "id": "19-6",
-                "description": "ASD",
-                "status": "Pending"
-            }
+            "order": null
         }
     ]
 }

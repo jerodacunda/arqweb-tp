@@ -1,17 +1,16 @@
 <div class="check-order-container">
-    <h2>Consultar Estado de Pedido</h2>
-    <input
-      type="string"
-      placeholder="Ingrese ID del pedido"
-      [(ngModel)]="orderId"
-      class="order-id-input"
-    />
-    <button (click)="checkOrderStatus()">Consultar</button>
-    <div *ngIf="orderStatus" class="order-status">
-      <p>Estado del pedido: {{ orderStatus }}</p>
-    </div>
-    <div *ngIf="errorMessage" class="error-message">
-      <p>{{ errorMessage }}</p>
-    </div>
+  <h2 class="check-order-title">Ver estado del Pedido</h2>
+  <input
+    type="text"
+    placeholder="Ingrese el código del pedido"
+    [(ngModel)]="orderId"
+    class="order-id-input"
+  />
+  <button (click)="checkOrderStatus()" class="btn-consult">Consultar</button>
+  <div *ngIf="orderStatus" class="order-status">
+    <p>Estado del pedido: {{ orderStatus }}</p>
   </div>
-  
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>

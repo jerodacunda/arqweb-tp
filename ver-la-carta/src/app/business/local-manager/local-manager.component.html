@@ -1,54 +1,85 @@
+<h2 class="title">Gestión de Pedidos</h2>
 <label for="localId">ID del Local:</label>
 <input type="number" [(ngModel)]="localId" id="localId" />
 
-<button (click)="toggleTableOrders()">
+<button (click)="toggleTableOrders()" class="toggle-button">
   {{ showTableOrders ? 'Ocultar Pedidos' : 'Ver Pedidos de Mesas' }}
 </button>
 
 <div *ngIf="showTableOrders">
   <h3>Pedidos de mesas:</h3>
-  <ul>
-    <li *ngFor="let table of tables">
-      <!-- Caso especial para la mesa 0 (Mesa con pedidos múltiples) -->
-      <ng-container *ngIf="table.number === 0; else regularTable">
-        Pedidos PickUp:
-        <ul>
-          <li *ngFor="let order of table.orders">
-            {{ order.description }} - Estado: {{ order.status }} - Actualizar estado: 
-            <select [(ngModel)]="order.status" (change)="updateOrderStatus(table.number, order.id, order.status)">
-              <option value="Aceptado">Aceptado</option>
-              <option value="Rechazado">Rechazado</option>
-              <option value="Listo para Pickup">Listo para Pickup</option>
-              <option value="Pronto a servir">Pronto a servir</option>
-              <option value="Entregado">Entregado</option>
-            </select>
-          </li>
-        </ul>
+  <table class="order-table">
+    <thead>
+      <tr>
+        <th>Mesa</th>
+        <th>Cód</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Actualizar</th>
+        <th>Liberar mesa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let table of tables">
+        <!-- Mesa 0 -->
+        <ng-container *ngIf="table.number === 0; else regularTable">
+          <tr *ngFor="let order of table.orders">
+            <td>PickUp</td>
+            <td>{{ order.id }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.status }}</td>
+            <td>
+              <select
+                [(ngModel)]="order.status"
+                (change)="updateOrderStatus(table.number, order.id, order.status)"
+              >
+                <option value="Aceptado">Aceptado</option>
+                <option value="Rechazado">Rechazado</option>
+                <option value="Listo para Pickup">Listo para Pickup</option>
+                <option value="Pronto a servir">Pronto a servir</option>
+                <option value="Entregado">Entregado</option>
+              </select>
+            </td>
+            <td>-</td>
+          </tr>
+        </ng-container>
+
+        <!-- Mesas regulares -->
+        <ng-template #regularTable>
+          <tr *ngIf="table.order; else noOrder">
+            <td>{{ table.number }}</td>
+            <td>{{ table.order.id }}</td>
+            <td>{{ table.order.description }}</td>
+            <td>{{ table.order.status }}</td>
+            <td>
+              <select
+                [(ngModel)]="table.order.status"
+                (change)="updateOrderStatus(table.number, table.order.id, table.order.status)"
+              >
+                <option value="Aceptado">Aceptado</option>
+                <option value="Rechazado">Rechazado</option>
+                <option value="Listo para Pickup">Listo para Pickup</option>
+                <option value="Pronto a servir">Pronto a servir</option>
+                <option value="Entregado">Entregado</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="releaseTable(table.number)">Liberar mesa</button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template #noOrder>
+          
+        </ng-template>
       </ng-container>
-
-      <!-- Plantilla para mesas regulares (Mesa 1 en adelante) -->
-      <ng-template #regularTable>
-        Mesa {{ table.number }} - Pedido:
-        <span *ngIf="table.order; else noOrder">
-          {{ table.order.description }} - Estado: {{ table.order.status }}  - Actualizar estado: 
-          <select [(ngModel)]="table.order.status" (change)="updateOrderStatus(table.number, table.order.id, table.order.status)">
-            <option value="Aceptado">Aceptado</option>
-            <option value="Rechazado">Rechazado</option>
-            <option value="Listo para Pickup">Listo para Pickup</option>
-            <option value="Pronto a servir">Pronto a servir</option>
-            <option value="Entregado">Entregado</option>
-          </select>
-          <button (click)="releaseTable(table.number)">Liberar mesa</button>
-        </span>
-      </ng-template>
-
-      <!-- Plantilla para mesas sin pedido -->
-      <ng-template #noOrder>No hay pedido</ng-template>
-    </li>
-  </ul>
-  <button (click)="releaseAllTables()">Liberar todas las mesas</button>
+    </tbody>
+  </table>
+  <button (click)="releaseAllTables()" class="release-button">
+    Liberar todas las mesas
+  </button>
 </div>
 
 <div>
-  <button (click)="deleteLocal()">ELIMINAR LOCAL!!</button>
+  <button (click)="deleteLocal()" class="delete-button">ELIMINAR LOCAL!!</button>
 </div>

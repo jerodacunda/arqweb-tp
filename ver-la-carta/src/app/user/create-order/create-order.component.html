@@ -1,18 +1,37 @@
 <div *ngIf="localId" class="create-order-form">
-  <h2>Realizar pedido para el local ID: {{ localId }}</h2>
-  <form (ngSubmit)="onSubmit()">
-    <label for="pickup">Pedido para recoger (PickUp):</label>
-    <input type="checkbox" id="pickup" [(ngModel)]="isPickUp" name="pickup" (change)="togglePickUp()">
-
-    <!-- Mostrar solo si isPickUp es false -->
-    <div *ngIf="!isPickUp">
-      <label for="table-number">Número de mesa:</label>
-      <input id="table-number" type="number" [(ngModel)]="tableNumber" name="tableNumber" (input)="onTableNumberChange()">
+  <h2 class="title">Realizar pedido  (ID del local: {{ localId }})</h2>
+  <form (ngSubmit)="onSubmit()" class="form-container">
+    <div class="form-section">
+      <label for="pickup">Pedido para retirar (PickUp):</label>
+      <input
+        type="checkbox"
+        id="pickup"
+        [(ngModel)]="isPickUp"
+        name="pickup"
+        (change)="togglePickUp()"
+      />
     </div>
 
-    <label for="order-details">Detalles del pedido:</label>
-    <textarea id="order-details" [(ngModel)]="orderDetails" name="orderDetails"></textarea>
+    <div *ngIf="!isPickUp" class="form-section">
+      <label for="table-number">Mesa:</label>
+      <input
+        id="table-number"
+        type="number"
+        [(ngModel)]="tableNumber"
+        name="tableNumber"
+        (input)="onTableNumberChange()"
+      />
+    </div>
 
-    <button type="submit">Realizar pedido</button>
+    <div class="form-section-large">
+      <label for="order-details">Detalles del pedido:</label>
+      <textarea
+        id="order-details"
+        [(ngModel)]="orderDetails"
+        name="orderDetails"
+      ></textarea>
+    </div>
+
+    <button type="submit" class="submit-button">Confirmar pedido</button>
   </form>
 </div>

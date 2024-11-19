@@ -1,18 +1,35 @@
+/* Contenedor principal */
 .business-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    background-color: #eef7ff;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 30px; /* Mayor separación */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Botón de registro */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
   
   .business-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #0056b3;
+    font-family: 'Roboto', sans-serif; /* Fuente moderna */
+    font-size: 30px; /* Más grande */
+    color: #555555; /* Gris oscuro */
+    text-align: right;
+    margin-right: 20px;
   }
   
   .map-container {

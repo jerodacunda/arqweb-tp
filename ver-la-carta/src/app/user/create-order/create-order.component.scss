@@ -1,0 +1,48 @@
+.create-order-form {
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-section-large {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+  
+  .form-section-large textarea {
+    height: 150px;
+  }
+  
+  .submit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+  .form-section {
+    display: flex;
+    align-items: right;
+    justify-content: flex-end;
+  }
+  
+  .form-section label {
+    margin: 0; /* Elimina márgenes para asegurar alineación vertical */
+  }
+  
+ 

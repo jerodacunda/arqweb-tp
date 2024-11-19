@@ -1,5 +1,5 @@
 {
-    "order_counter": 25,
+    "order_counter": 26,
     "tables": [
         {
             "number": 0,
@@ -22,7 +22,7 @@
                 {
                     "id": "16-14",
                     "description": "kjkjh",
-                    "status": "Pending"
+                    "status": "Aceptado"
                 },
                 {
                     "id": "16-16",
@@ -50,8 +50,8 @@
                     "status": "Pending"
                 },
                 {
-                    "id": "16-24",
-                    "description": "s",
+                    "id": "16-25",
+                    "description": "Jabm",
                     "status": "Pending"
                 }
             ]
@@ -86,19 +86,11 @@
         },
         {
             "number": 7,
-            "order": {
-                "id": "16-8",
-                "description": "adasd",
-                "status": "Pronto a servir"
-            }
+            "order": null
         },
         {
             "number": 8,
-            "order": {
-                "id": "16-11",
-                "description": "ASFASF",
-                "status": "Pending"
-            }
+            "order": null
         },
         {
             "number": 9,
