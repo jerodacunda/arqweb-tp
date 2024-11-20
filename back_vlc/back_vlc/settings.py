@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-m&o)y=_ct0e($bt_!3)uq&khemn6o)5q1^6d(pox1i+6@erp+0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['arqweb-tp-django.onrender.com']
 
 
 # Application definition
