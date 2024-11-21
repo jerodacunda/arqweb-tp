@@ -64,7 +64,7 @@ export class CheckOrderStatusComponent {
       const [localId, _] = this.orderId.split('-');
 
       // Realizar un GET para obtener el pedido
-      this.http.get(`http://localhost:8000/api/locales/${localId}/tables-orders/`).subscribe(
+      this.http.get(`https://arqweb-tp-django.onrender.com/api/locales/${localId}/tables-orders/`).subscribe(
         (data: any) => {
           let orderFound = null;
           for (const table of data.tables) {

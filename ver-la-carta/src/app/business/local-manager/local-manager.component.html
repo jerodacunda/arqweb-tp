@@ -72,7 +72,7 @@
             </td>
             <td *ngIf="table.order.mozo; else noMozo">Solicitado</td>
             <ng-template #noMozo><td>No solicitado</td></ng-template>
-            <td> <button (click)="releaseMozo( table.order.id , table.order.mozo)">Liberar Mozo</button> </td>
+            <td> <button (click)="releaseMozo( table.order.id , table.order.mozo)">Mesa atendida</button> </td>
           </tr>
         </ng-template>
 
