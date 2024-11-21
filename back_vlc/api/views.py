@@ -147,7 +147,7 @@ class LocalTableOrderView(APIView):
 
         return Response({"message": "Estado del pedido actualizado"}, status=status.HTTP_200_OK)
 
-def patch(self, request, localid):
+def patch(self, request, local_id):
         order_id = request.data.get("orderId")
         mozo = request.data.get("mozo")
 
