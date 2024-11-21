@@ -31,7 +31,7 @@ export class LocalManagerComponent {
 
   fetchOrders() {
     if (this.localId) {
-      this.http.get(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`).subscribe(
+      this.http.get(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`).subscribe(
         (data: any) => {
           if (data.tables) {
             this.tables = data.tables;
@@ -57,7 +57,7 @@ export class LocalManagerComponent {
         status: newStatus,
       };
 
-      this.http.put(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, requestData)
+      this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`, requestData)
         .subscribe(
           (response: any) => {
             alert('Estado del pedido actualizado con éxito');
@@ -77,7 +77,7 @@ export class LocalManagerComponent {
   releaseTable(tableNumber: number) {
     if (this.localId && confirm('¿Está seguro de que desea liberar la mesa?')) {
       const requestData = { table_number: tableNumber };
-      this.http.delete(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, { body: requestData }).subscribe(
+      this.http.delete(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`, { body: requestData }).subscribe(
         () => {
           alert('Mesa liberada con éxito');
           this.fetchOrders();
@@ -102,7 +102,7 @@ export class LocalManagerComponent {
         }
 
         // Enviar la solicitud con el cuerpo correctamente asignado.
-        this.http.delete(`http://localhost:8000/api/locales/${this.localId}/tables-orders/?action=${action}`).subscribe(
+        this.http.delete(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/?action=${action}`).subscribe(
             () => {
                 alert('Todas las mesas liberadas con éxito');
                 this.fetchOrders();
@@ -119,7 +119,7 @@ export class LocalManagerComponent {
 
   deleteLocal() {
     if (this.localId && confirm('¿Está seguro de que desea eliminar el local? Esta acción no se puede deshacer.')) {
-      this.http.delete(`http://localhost:8000/api/locales/${this.localId}/tables-orders/?action=delete_local`).subscribe(
+      this.http.delete(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/?action=delete_local`).subscribe(
         () => {
           alert('Local eliminado con éxito');
           this.localId = null;

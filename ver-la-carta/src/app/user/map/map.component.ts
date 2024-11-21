@@ -50,8 +50,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         logo: string;
         menu_pdf: string;
       }) => {
-        const logoUrl = `http://localhost:8000/${local.logo}`;
-        const menuPdfUrl = `http://localhost:8000/${local.menu_pdf}`;
+        const logoUrl = `https://arqweb-tp-django.onrender.com/${local.logo}`;
+        const menuPdfUrl = `https://arqweb-tp-django.onrender.com/${local.menu_pdf}`;
 
         const marker = L.marker([local.latitude, local.longitude])
           .addTo(this.map)
@@ -68,8 +68,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
   }
 
   private createPopupContent(local: any): string {
-    const logoUrl = `http://localhost:8000/${local.logo}`;
-    const menuPdfUrl = `http://localhost:8000/${local.menu_pdf}`;
+    const logoUrl = `https://arqweb-tp-django.onrender.com/${local.logo}`;
+    const menuPdfUrl = `https://arqweb-tp-django.onrender.com/${local.menu_pdf}`;
     return `
       <div>
         <h3>${local.name} (ID: ${local.id})</h3>

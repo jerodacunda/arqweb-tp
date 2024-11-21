@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MarkerService {
-  private apiUrl = 'http://localhost:8000/api/locales/';  // URL del endpoint
+  private apiUrl = 'https://arqweb-tp-django.onrender.com/api/locales/';  // URL del endpoint
 
   constructor(private http: HttpClient) {}
 

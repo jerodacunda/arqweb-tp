@@ -45,7 +45,7 @@ export class CreateOrderComponent implements OnInit, OnChanges {
         const local = locales.find(l => l.id === localId);
         if (local) {
           this.localDetails = local;
-          this.menuPdfUrl = `http://localhost:8000/${local.menu_pdf}`;
+          this.menuPdfUrl = `https://arqweb-tp-django.onrender.com/${local.menu_pdf}`;
         } else {
           console.error('No se encontró un local con el ID especificado');
         }
@@ -80,7 +80,7 @@ export class CreateOrderComponent implements OnInit, OnChanges {
         order_details: this.orderDetails,
       };
 
-      this.http.post(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, orderData)
+      this.http.post(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`, orderData)
         .subscribe(
           (response: any) => {
             console.log('Pedido creado con éxito:', response);

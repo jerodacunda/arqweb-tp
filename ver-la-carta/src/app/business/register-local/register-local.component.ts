@@ -33,7 +33,7 @@ export class RegisterLocalComponent {
       }
     }
 
-    this.http.post('http://localhost:8000/api/locales/', formData)
+    this.http.post('https://arqweb-tp-django.onrender.com/api/locales/', formData)
       .subscribe(response => {
         console.log('Local registrado con éxito:', response);
         alert('Local registrado con éxito');
