@@ -83,8 +83,8 @@ export class CheckOrderStatusComponent {
 
           if (orderFound) {
             // Si se encontró el pedido, realizar el PUT para llamar al mozo
-            this.http.patch(`http://localhost:8000/api/locales/${localId}/tables-orders/`, {
-              orderId: this.orderId,
+            this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${localId}/tables-orders/`, {
+              order_id: this.orderId,
               mozo: true  // Indicamos que se ha llamado al mozo
             }).subscribe(
               (response) => {
