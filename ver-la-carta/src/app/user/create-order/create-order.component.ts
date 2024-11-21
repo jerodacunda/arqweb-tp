@@ -45,7 +45,7 @@ export class CreateOrderComponent implements OnInit, OnChanges {
         const local = locales.find(l => l.id === localId);
         if (local) {
           this.localDetails = local;
-          this.menuPdfUrl = `https://arqweb-tp-django.onrender.com/${local.menu_pdf}`;
+          this.menuPdfUrl = `https://arqweb-tp-django.onrender.com${local.menu_pdf}`;
         } else {
           console.error('No se encontró un local con el ID especificado');
         }
