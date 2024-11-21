@@ -64,7 +64,7 @@ export class CheckOrderStatusComponent {
       const [localId, _] = this.orderId.split('-');
 
       // Realizar un GET para obtener el pedido
-      this.http.get(`http://localhost:8000/api/locales/${localId}/tables-orders/`).subscribe(
+      this.http.get(`https://arqweb-tp-django.onrender.com/api/locales/${localId}/tables-orders/`).subscribe(
         (data: any) => {
           let orderFound = null;
           for (const table of data.tables) {
@@ -83,8 +83,8 @@ export class CheckOrderStatusComponent {
 
           if (orderFound) {
             // Si se encontró el pedido, realizar el PUT para llamar al mozo
-            this.http.patch(`http://localhost:8000/api/locales/${localId}/tables-orders/`, {
-              orderId: this.orderId,
+            this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${localId}/tables-orders/`, {
+              order_id: this.orderId,
               mozo: true  // Indicamos que se ha llamado al mozo
             }).subscribe(
               (response) => {
