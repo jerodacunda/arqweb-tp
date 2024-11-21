@@ -39,11 +39,12 @@ https://docs.djangoproject.com/en/5.1/intro/tutorial01/
 api/
 |-- migrations/                # Se usa si cambiamos algo de la base de datos.
 |-- admin.py                   # Configuración del panel de administración de Django.
-|-- apps.py                    # Configuración de la aplicación Django (?).
+|-- apps.py                    # Configuración de la aplicación Django.
 |-- models.py                  # Definición de los modelos de la base de datos (Locales)
 |-- serializers.py             # Serializadores para transformar datos entre modelos y JSON.
-|-- tests.py                   # Pruebas unitarias de la aplicación (?)
-|-- urls.py                    # Definición de las rutas 
+|-- signals.py                 # Señales que ejecutan algun evento
+|-- tests.py                   # Pruebas unitarias de la aplicación 
+|-- urls.py                    # Definición de las rutas de la app 
 |-- views.py                   # Vistas que manejan la lógica de las solicitudes HTTP (Get/Post/Put/Delete para locales y pedidos).
 
 back_vlc/
@@ -52,10 +53,8 @@ back_vlc/
 data/
 |-- media/                     # Mesas/Pedidos, imagenes y menues de los locales
 
-qr_for_tables/                 # códigos QR de ejemplo para las mesas.
 db.sqlite3                     # base de datos SQLite para almacenamiento de locales.
-manage.py                      # 
-qr_generator.py                # Script para la creación de códigos QR.
+manage.py                      
 ```
 
 ### Frontend (Angular)
