@@ -30,7 +30,8 @@ class Local(models.Model):
             new_order = {
                 "id": order_id,
                 "description": order_details,
-                "status": 'Pending'
+                "status": 'Pending',
+                "mozo": False
             }
 
             if table_number == 0:

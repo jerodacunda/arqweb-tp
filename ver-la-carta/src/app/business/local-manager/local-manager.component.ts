@@ -74,6 +74,54 @@ export class LocalManagerComponent {
     }
   }
 
+  releaseMozo(orderId: number, mozoSolicitado:boolean) {
+    if (!mozoSolicitado) {
+      alert('El mozo no está solicitado!');
+      return; // Salir de la función si el mozo no está solicitado
+    }
+    // Realizar un GET para obtener el pedido
+    this.http.get(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`).subscribe(
+      (data: any) => {
+        let orderFound = null;
+        for (const table of data.tables) {
+          if (table.orders) {
+            // Si hay un array de órdenes, buscar en él
+            orderFound = table.orders.find((order: any) => order.id === orderId);
+          } else if (table.order) {
+            // Si hay un solo objeto de orden, compararlo directamente
+            if (table.order.id === orderId) {
+              orderFound = table.order;
+            }
+          }
+          // Si se encuentra el pedido, salir del bucle
+          if (orderFound) break;
+        }
+
+        if (orderFound) {
+          // Si se encontró el pedido, realizar el PUT para llamar al mozo
+          this.http.patch(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`, {
+            orderId: orderId,
+            mozo: false  // Indicamos que se ha llamado al mozo
+          }).subscribe(
+            (response) => {
+              alert('La mesa ya fue atendida');
+              console.log('Respuesta del servidor:', response);
+              this.fetchOrders();
+            },
+            (error) => {
+              console.error('No se pudo liberar al Mozo:', error);
+              alert('No se pudo liberar al Mozo.');
+            }
+          );
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el pedido:', error);
+        alert('Error al obtener el pedido.');
+      }
+    );
+}  
+
   releaseTable(tableNumber: number) {
     if (this.localId && confirm('¿Está seguro de que desea liberar la mesa?')) {
       const requestData = { table_number: tableNumber };

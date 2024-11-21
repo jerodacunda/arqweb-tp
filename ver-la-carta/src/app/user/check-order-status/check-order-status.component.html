@@ -13,4 +13,7 @@
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
   </div>
+  <div *ngIf="orderStatus">
+    <button (click)="callWaiter()">Llamar al Mozo</button>
+  </div>
 </div>

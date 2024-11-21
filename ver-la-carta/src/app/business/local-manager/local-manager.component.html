@@ -17,6 +17,8 @@
         <th>Estado</th>
         <th>Actualizar</th>
         <th>Liberar mesa</th>
+        <th>Mozo</th>
+        <th>Atender</th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +42,8 @@
                 <option value="Entregado">Entregado</option>
               </select>
             </td>
+            <td>-</td>
+            <td>-</td>
             <td>-</td>
           </tr>
         </ng-container>
@@ -66,6 +70,9 @@
             <td>
               <button (click)="releaseTable(table.number)">Liberar mesa</button>
             </td>
+            <td *ngIf="table.order.mozo; else noMozo">Solicitado</td>
+            <ng-template #noMozo><td>No solicitado</td></ng-template>
+            <td> <button (click)="releaseMozo( table.order.id , table.order.mozo)">Liberar Mozo</button> </td>
           </tr>
         </ng-template>
 

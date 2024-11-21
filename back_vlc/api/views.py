@@ -146,3 +146,37 @@ class LocalTableOrderView(APIView):
             file.truncate()
 
         return Response({"message": "Estado del pedido actualizado"}, status=status.HTTP_200_OK)
+
+def patch(self, request, localid):
+        order_id = request.data.get("orderId")
+        mozo = request.data.get("mozo")
+
+        file_path = os.path.join(DATA_DIR, f'local{local_id}_tables.json')
+        if not os.path.exists(file_path):
+            return Response({"error": "Local no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        with open(file_path, 'r+') as file:
+            data = json.load(file)
+            order_found = False
+            for table in data["tables"]:
+                if table["number"] != 0 and table["order"] and table["order"].get("id") == order_id:
+                    table["order"]["mozo"] = mozo
+                    order_found = True
+                    break
+                elif table.get("orders"):
+                    for order in table["orders"]:
+                        if order["id"] == order_id:
+                            order["mozo"] = mozo
+                            order_found = True
+                            break
+                if order_found:
+                    break
+
+            if not order_found:
+                return Response({"error": "Pedido no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+            file.seek(0)
+            json.dump(data, file, indent=4)
+            file.truncate()
+
+        return Response({"message": "Mozo llamado exitosamente"}, status=status.HTTP_200_OK)
