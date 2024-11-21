@@ -80,7 +80,7 @@ export class LocalManagerComponent {
       return; // Salir de la función si el mozo no está solicitado
     }
     // Realizar un GET para obtener el pedido
-    this.http.get(`http://localhost:8000/api/locales/${this.localId}/tables-orders/`).subscribe(
+    this.http.get(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`).subscribe(
       (data: any) => {
         let orderFound = null;
         for (const table of data.tables) {
