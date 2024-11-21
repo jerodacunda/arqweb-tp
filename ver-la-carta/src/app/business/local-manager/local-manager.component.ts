@@ -100,7 +100,7 @@ export class LocalManagerComponent {
         if (orderFound) {
           // Si se encontró el pedido, realizar el PUT para llamar al mozo
           this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`, {
-            orde_id: orderId,
+            order_id: orderId,
             mozo: false  // Indicamos que se ha llamado al mozo
           }).subscribe(
             (response) => {
