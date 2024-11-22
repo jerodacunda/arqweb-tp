@@ -15,7 +15,7 @@ export class UserEntryComponent implements OnChanges {
   @Input() selectedLocalId: number | null = null;
   @Input() selectedTableNumber: number | null = null;
   @Output() localIdEvent = new EventEmitter<number>();
-  userLocation: L.LatLng | null = null; // Nueva propiedad para la ubicación del usuario
+  userLocation: L.LatLng | null = null; 
 
 
   onShowOrderForm(localId: number): void {
@@ -30,6 +30,6 @@ export class UserEntryComponent implements OnChanges {
   }
   
   onUserLocationReceived(location: L.LatLng): void {
-    this.userLocation = location; // Guarda la ubicación del usuario
+    this.userLocation = location; 
   }
 }

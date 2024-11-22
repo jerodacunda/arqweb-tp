@@ -77,7 +77,7 @@ export class LocalManagerComponent {
   releaseMozo(orderId: number, mozoSolicitado:boolean) {
     if (!mozoSolicitado) {
       alert('El mozo no está solicitado!');
-      return; // Salir de la función si el mozo no está solicitado
+      return; 
     }
     // Realizar un GET para obtener el pedido
     this.http.get(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`).subscribe(
@@ -85,23 +85,20 @@ export class LocalManagerComponent {
         let orderFound = null;
         for (const table of data.tables) {
           if (table.orders) {
-            // Si hay un array de órdenes, buscar en él
             orderFound = table.orders.find((order: any) => order.id === orderId);
           } else if (table.order) {
-            // Si hay un solo objeto de orden, compararlo directamente
             if (table.order.id === orderId) {
               orderFound = table.order;
             }
           }
-          // Si se encuentra el pedido, salir del bucle
           if (orderFound) break;
         }
 
         if (orderFound) {
-          // Si se encontró el pedido, realizar el PUT para llamar al mozo
+          // realizar el PUT para desactivar el llamado al mozo
           this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/`, {
             order_id: orderId,
-            mozo: false  // Indicamos que se ha llamado al mozo
+            mozo: false  
           }).subscribe(
             (response) => {
               alert('La mesa ya fue atendida');
@@ -141,15 +138,15 @@ export class LocalManagerComponent {
 
   releaseAllTables() {
     if (this.localId && confirm('¿Está seguro de que desea liberar todas las mesas?')) {
-        let action = null; // Inicializar correctamente con `let`.
+        let action = null; 
 
         if (confirm('¿Eliminar incluso pedidos de PickUp?')) {
-            action = 'release_all_pickup' ; // Asignación correcta.
+            action = 'release_all_pickup' ; 
         } else {
-            action = 'release_all'; // Asignación correcta.
+            action = 'release_all'; 
         }
 
-        // Enviar la solicitud con el cuerpo correctamente asignado.
+      
         this.http.delete(`https://arqweb-tp-django.onrender.com/api/locales/${this.localId}/tables-orders/?action=${action}`).subscribe(
             () => {
                 alert('Todas las mesas liberadas con éxito');

@@ -10,7 +10,7 @@ import { MarkerService } from '../../marker.service';
 })
 export class MapComponent implements AfterViewInit, OnChanges {
   private map: any;
-  @Output() showOrderForm = new EventEmitter<number>(); // Emisor de evento para el localId
+  @Output() showOrderForm = new EventEmitter<number>(); // Emite evento al setear local_id
   private locales: any[] = []; // Guardamos los locales cargados
   @Input() selectedLocalId: number | null = null;
   @Output() userLocation = new EventEmitter<L.LatLng>(); // Emitir la ubicación del usuario
@@ -32,7 +32,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.initMap();
     this.loadLocales();
 
-    // Intentar obtener la ubicación del usuario
+    // Intentamos obtener la ubicación del usuario
     this.getUserLocation();
   }
 
@@ -117,18 +117,17 @@ export class MapComponent implements AfterViewInit, OnChanges {
           const userLng = position.coords.longitude;
           console.log('Ubicación obtenida:', userLat, userLng); // Ver las coordenadas
           const userLatLng = L.latLng(userLat, userLng);
-          this.userLocation.emit(userLatLng); // Emitir la ubicación del usuario  
+          this.userLocation.emit(userLatLng); // Emite la ubicación del usuario  
           // Mostrar la ubicación del usuario en el mapa
           const userMarker = L.marker([userLat, userLng]).addTo(this.map);
           userMarker.bindPopup('Ubicación actual del usuario');
         },
         (error) => {
           console.error('Error al obtener la ubicación del usuario: ', error);
-          // Si no se puede obtener la ubicación, podrías mostrar un mensaje o mantener la ubicación predeterminada
           alert('No se pudo obtener la ubicación del usuario. Se usará la ubicación predeterminada.');
         },
         {
-          enableHighAccuracy: true,  // Forzar mayor precisión (puede usar más batería)
+          enableHighAccuracy: true,  // Forzar mayor precisión 
           timeout: 10000,            // Tiempo máximo para obtener la ubicación
           maximumAge: 0             // No usar ubicaciones en caché
         }

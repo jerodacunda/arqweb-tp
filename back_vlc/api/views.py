@@ -11,7 +11,7 @@ DATA_DIR = os.path.join(BASE_DIR, '../data')
 
 class LocalListView(APIView):
     def get(self, request):
-        locales = Local.objects.all()  # Consulta a la base de datos
+        locales = Local.objects.all()  
         serializer = LocalSerializer(locales, many=True)
         return Response(serializer.data)
 
@@ -21,7 +21,7 @@ class LocalListView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(serializer.errors)  # Imprime los errores de validación
+            print(serializer.errors)  
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LocalTableOrderView(APIView):
@@ -51,7 +51,6 @@ class LocalTableOrderView(APIView):
         if action == 'delete_local':
             local = Local.objects.get(id=local_id)
             local.delete()
-            # Eliminar el archivo de datos asociado al local
             os.remove(file_path)
             
             return Response({"message": "El local y sus datos han sido eliminados con éxito."}, status=status.HTTP_200_OK)
@@ -76,7 +75,7 @@ class LocalTableOrderView(APIView):
                 for table in data["tables"]:
                     if table["number"] >= 0:
                         if table["number"] == 0 and "orders" in table:
-                            table["orders"] = []  # Vaciar la lista de órdenes de la mesa 0
+                            table["orders"] = []  
                         else:
                             table["order"] = None
     
@@ -86,7 +85,7 @@ class LocalTableOrderView(APIView):
     
                 return Response({"message": "Pedidos de todas las mesas, incluyendo la mesa 0, eliminados con éxito."}, status=status.HTTP_200_OK)
     
-            # Procedimiento estándar para eliminar un pedido específico
+            # Eliminar un pedido específico
             table_number = request.data.get("table_number")
             table = next((t for t in data["tables"] if t["number"] == table_number), None)
             
@@ -123,21 +122,19 @@ class LocalTableOrderView(APIView):
             order_found = False
             for table in data["tables"]:
                 if table["number"] != 0 and table["order"] and table["order"].get("id") == order_id:
-                    # Actualizar el estado del pedido si se proporciona
+                    # Actualizar el estado del pedido
                     if new_status is not None:
                         table["order"]["status"] = new_status
-                    # Actualizar el estado del mozo si se proporciona
+                    # Actualizar el estado del mozo 
                     if mozo_status is not None:
                         table["order"]["mozo"] = mozo_status
                     order_found = True
                     break
-                elif table.get("orders"):  # Manejo de múltiples pedidos (ej. mesa 0)
+                elif table.get("orders"):  # Manejo de mesa 0
                     for order in table["orders"]:
                         if order["id"] == order_id:
-                            # Actualizar el estado del pedido si se proporciona
                             if new_status is not None:
                                 order["status"] = new_status
-                            # Actualizar el estado del mozo si se proporciona
                             if mozo_status is not None:
                                 order["mozo"] = mozo_status
                             order_found = True
@@ -151,7 +148,6 @@ class LocalTableOrderView(APIView):
             # Si el pedido es de la mesa 0 y su estado es "Entregado", lo eliminamos de la lista de pedidos
             if new_status == "Entregado" and table["number"] == 0:
                 if table.get("orders"):
-                    # Eliminar el pedido que acaba de ser entregado
                     table["orders"] = [order for order in table["orders"] if order["id"] != order_id]
 
             file.seek(0)

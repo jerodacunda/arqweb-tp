@@ -27,15 +27,12 @@ export class CheckOrderStatusComponent {
           let orderFound = null;
           for (const table of data.tables) {
             if (table.orders) {
-              // Si hay un array de órdenes, buscar en él
               orderFound = table.orders.find((order: any) => order.id === this.orderId);
             } else if (table.order) {
-              // Si hay un solo objeto de orden, compararlo directamente
               if (table.order.id === this.orderId) {
                 orderFound = table.order;
               }
             }
-            // Si se encuentra el pedido, salir del bucle
             if (orderFound) break;
           }
 
@@ -69,15 +66,12 @@ export class CheckOrderStatusComponent {
           let orderFound = null;
           for (const table of data.tables) {
             if (table.orders) {
-              // Si hay un array de órdenes, buscar en él
               orderFound = table.orders.find((order: any) => order.id === this.orderId);
             } else if (table.order) {
-              // Si hay un solo objeto de orden, compararlo directamente
               if (table.order.id === this.orderId) {
                 orderFound = table.order;
               }
             }
-            // Si se encuentra el pedido, salir del bucle
             if (orderFound) break;
           }
 
@@ -85,10 +79,10 @@ export class CheckOrderStatusComponent {
             // Si se encontró el pedido, realizar el PUT para llamar al mozo
             this.http.put(`https://arqweb-tp-django.onrender.com/api/locales/${localId}/tables-orders/`, {
               order_id: this.orderId,
-              mozo: true  // Indicamos que se ha llamado al mozo
+              mozo: true  
             }).subscribe(
               (response) => {
-                this.mozo = true;  // Indicamos que el mozo ha sido llamado
+                this.mozo = true;  
                 alert('Mozo llamado exitosamente.');
               },
               (error) => {

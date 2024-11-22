@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Leer parámetros de la URL al cargar el componente
+    // Leer parámetros de la URL al cargar el componente (para ingreso con QR)
     this.route.queryParams.subscribe(params => {
       const mode = params['mode'];
       const localId = params['localId'];

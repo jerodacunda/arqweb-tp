@@ -3,8 +3,6 @@ import json
 from django.db import models
 from rest_framework import status
 from rest_framework.response import Response
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 class Local(models.Model):
     name = models.CharField(max_length=100)
@@ -25,7 +23,7 @@ class Local(models.Model):
 
         with open(file_path, 'r+') as file:
             data = json.load(file)
-            # Generar un ID de pedido único combinando el ID del local y el contador
+            # Generamos un ID de pedido único combinando el ID del local y el contador
             order_id = f'{local_id}-{data["order_counter"]}'            
             new_order = {
                 "id": order_id,

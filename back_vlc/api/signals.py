@@ -11,16 +11,14 @@ def create_data_file_path(sender, instance, created, **kwargs):
         if not os.path.exists(base_dir):
             os.makedirs(base_dir)
 
-        # Asignar la ruta del archivo
         instance.data_file_path = os.path.join(base_dir, f'local_{instance.id}_tables.json')
         print(f"Data file path asignado: {instance.data_file_path}")
 
-        # Crear el archivo JSON si no existe
         if not os.path.exists(instance.data_file_path):
             initial_data = {
-                "order_counter": 1,  # Inicializamos el contador de pedidos
+                "order_counter": 1,  
                 "tables": [
-                    {"number": 0, "orders": []}  # Mesa de pickup con lista de pedidos vacía
+                    {"number": 0, "orders": []} 
                 ] + [
                     {"number": i + 1, "order": None} for i in range(instance.num_tables)
                 ]
@@ -29,5 +27,4 @@ def create_data_file_path(sender, instance, created, **kwargs):
             with open(instance.data_file_path, 'w') as json_file:
                 json.dump(initial_data, json_file)
 
-        # Guardar el modelo nuevamente para que el campo `data_file_path` se persista
         instance.save()

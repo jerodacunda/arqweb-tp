@@ -19,7 +19,7 @@ export class CreateOrderComponent implements OnInit, OnChanges {
   orderDetails: string = '';
   localDetails: any = null;
   menuPdfUrl: string | null = null;
-  isPickUp: boolean = false; // Nueva propiedad para el control de PickUp
+  isPickUp: boolean = false; 
 
   constructor(private http: HttpClient, private markerService: MarkerService) {}
 
@@ -28,8 +28,8 @@ export class CreateOrderComponent implements OnInit, OnChanges {
       this.loadLocalDetails(this.localId);
     }
     if (this.tableNumber === 0) {
-      this.isPickUp = true; // Marcar la casilla de PickUp si el número de mesa es 0
-      this.togglePickUp(); // Aplicar la lógica de bloqueo y ocultación
+      this.isPickUp = true; 
+      this.togglePickUp(); 
     }
   }
 
@@ -96,11 +96,11 @@ export class CreateOrderComponent implements OnInit, OnChanges {
 
   onTableNumberChange(): void {
     if (this.tableNumber === 0) {
-      this.isPickUp = true; // Marca automáticamente la casilla de PickUp
+      this.isPickUp = true; 
     } else {
-      this.isPickUp = false; // Desmarca la casilla si el valor no es 0
+      this.isPickUp = false; 
     }
-    this.togglePickUp(); // Llama al método para actualizar la lógica de bloqueo/ocultación
+    this.togglePickUp(); 
   }
 
   private calculateDistance(userLatLng: L.LatLng, localLatLng: L.LatLng): number {
